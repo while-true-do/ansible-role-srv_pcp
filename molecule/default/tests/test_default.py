@@ -13,15 +13,6 @@ def test_pcp_package(host):
     assert pkg_sys.is_installed
 
 
-def test_pcp_service(host):
-    srv_pmcd = host.service('pmcd')
-    srv_pmlo = host.service('pmlogger')
-    assert srv_pmcd.is_running
-    assert srv_pmcd.is_enabled
-    assert srv_pmlo.is_running
-    assert srv_pmlo.is_enabled
-
-
 def test_pmcd_env(host):
     file = host.file('/etc/sysconfig/pmcd')
     assert file.exists

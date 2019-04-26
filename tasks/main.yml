@@ -39,6 +39,7 @@
   loop: "{{ wtd_srv_pcp_service }}"
   when:
     - wtd_srv_pcp_package_state != "absent"
+    - ansible_virtualization_type != "docker"
   tags:
     - pcp
     - service

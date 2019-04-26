@@ -32,15 +32,16 @@ software via "Performance Metrics Domain Agents (pmda)".
 
 This Role installs Performance Co-Pilot and configures it.
 
--   configure pmcd to collect logs on a "Collector Host"
--   configure pmlogger to fetch logs on a "Monitoring Host"
+-   configure pmcd to collect logs as a "Collector Host"
+-   configure pmlogger to fetch logs as a "Monitoring Host"
 
 ## Requirements
 
 Used Modules:
 
--   [module1](link)
--   [module2](link)
+-   [Ansible Package Module](https://docs.ansible.com/ansible/latest/modules/package_module.html)
+-   [Ansible Service Module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+-   [Ansible Template Module](https://docs.ansible.com/ansible/latest/modules/template_module.html)
 
 ## Installation
 
@@ -82,14 +83,13 @@ wtd_srv_pcp_service_state: "started"
 wtd_srv_pcp_service_enabled: true
 
 # Configuration Management
-wtd_srv_pcp_conf_pmcd:
-  # 0 = permits remote connections, 1 = forbids remote connections
-  # You may have to enable proper firewall rules
-  PMCD_LOCAL: 1
-  PMCD_MAXPENDING: 5
-  PMCD_ROOT_AGENT: 1
-  PMCD_RESTART_AGENTS: 1
-  PMCD_WAIT_TIMEOUT: 60
+# 0 = permits remote connections, 1 = forbids remote connections
+# You may have to enable proper firewall rules
+wtd_srv_pcp_conf_pmcd_local: 1
+wtd_srv_pcp_conf_pmcd_maxpending: 5
+wtd_srv_pcp_conf_pmcd_root_agent: 1
+wtd_srv_pcp_conf_pmcd_restart_agents: 1
+wtd_srv_pcp_conf_pmcd_wait_timeout: 60
 
 wtd_srv_pcp_conf_pmlogger_control_d: []
 # Simple example with hostname
@@ -131,7 +131,7 @@ can be done in a
 - hosts: all
   roles:
     - role: while_true_do.srv_pcp
-      wtd_srv_pcp_conf_pmcd.PMCD_LOCAL: 0
+      wtd_srv_pcp_conf_pmcd_local: 0
 ```
 
 # Configure a Monitor Host (to fetch from other hosts)
@@ -140,7 +140,7 @@ can be done in a
 - hosts: all
   roles:
     - role: while_true_do.srv_pcp
-      wtd_srv_pcp_conf_pmcd.PMCD_LOCAL: 0
+      wtd_srv_pcp_conf_pmcd_local: 0
       wtd_srv_pcp_conf_pmlogger_control_d:
         - name: "labrat01"
           host: "labrat01.wtd.local"
