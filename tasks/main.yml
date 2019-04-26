@@ -26,6 +26,8 @@
     state: "{{ wtd_srv_pcp_service_state }}"
     enabled: "{{ wtd_srv_pcp_service_enabled }}"
   become: true
+  retries: 3
+  delay: 10
   loop: "{{ wtd_srv_pcp_service }}"
   when:
     - wtd_srv_pcp_package_state != "absent"

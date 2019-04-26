@@ -5,6 +5,8 @@
   service:
     name: pmcd
     state: restarted
+  retries: 3
+  delay: 10
   become: yes
   tags:
     - pcp
@@ -14,6 +16,8 @@
   service:
     name: pmlogger
     state: restarted
+  retries: 3
+  delay: 10
   become: yes
   tags:
     - pcp
