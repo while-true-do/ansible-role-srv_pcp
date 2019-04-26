@@ -1,6 +1,16 @@
 ---
 # tasks file for while_true_do.srv_pcp
 
+- name: Manage pcp Dependencies
+  package:
+    name: procps-ng
+    state: "present"
+  when: wtd_srv_pcp_package_state != "absent"
+  become: yes
+  tags:
+    - pcp
+    - package
+
 - name: Manage pcp Packages
   package:
     name: "{{ wtd_srv_pcp_package }}"
@@ -26,10 +36,6 @@
     state: "{{ wtd_srv_pcp_service_state }}"
     enabled: "{{ wtd_srv_pcp_service_enabled }}"
   become: true
-  register: pcp_srv_state
-  retries: 5
-  delay: 15
-  until: pcp_srv_state is success
   loop: "{{ wtd_srv_pcp_service }}"
   when:
     - wtd_srv_pcp_package_state != "absent"

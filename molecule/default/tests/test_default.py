@@ -25,6 +25,16 @@ def test_pcp_service(host):
 def test_pmcd_env(host):
     file = host.file('/etc/sysconfig/pmcd')
     assert file.exists
+    assert file.contains('PMCD_LOCAL=0')
+    assert file.user == 'root'
+    assert file.group == 'root'
+    assert oct(file.mode) == '0o644'
+
+
+def test_pmlogger_control_d(host):
+    file = host.file('/etc/pcp/pmlogger/control.d/labrat01')
+    assert file.exists
+    assert file.contains('labrat01')
     assert file.user == 'root'
     assert file.group == 'root'
     assert oct(file.mode) == '0o644'
