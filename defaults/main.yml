@@ -1,0 +1,48 @@
+---
+# defaults file for while_true_do.srv_pcp
+
+# Package Management
+wtd_srv_pcp_package:
+  - pcp
+  - pcp-system-tools
+# Extra pmda packages, to be installed
+# Enabling the metrics is currently not supported.
+wtd_srv_pcp_package_pmda: []
+# State can be present|latest|absent
+wtd_srv_pcp_package_state: "present"
+
+# Service Management
+wtd_srv_pcp_service:
+  - pmcd
+  - pmlogger
+# State can be started|stopped
+wtd_srv_pcp_service_state: "started"
+# Enabled can be true|false
+wtd_srv_pcp_service_enabled: true
+
+# Configuration Management
+wtd_srv_pcp_conf_pmcd:
+  # 0 = permits remote connections, 1 = forbids remote connections
+  # You may have to enable proper firewall rules
+  PMCD_LOCAL: 1
+  PMCD_MAXPENDING: 5
+  PMCD_ROOT_AGENT: 1
+  PMCD_RESTART_AGENTS: 1
+  PMCD_WAIT_TIMEOUT: 60
+
+wtd_srv_pcp_conf_pmlogger_control_d: []
+# Simple example with hostname
+# - name: "labrat01"
+#   host: "labrat01"
+# IP example
+# - name: "labrat01"
+#   host: "192.168.0.100"
+# FQDN Example
+# - name: "labrat01.while-true-do.io"
+#   host: "labrat01.while-true-do.io"
+# Full Example
+# - name: "labrat01"
+#   host: "labrat01"
+#   primary: "n"
+#   socks: "n"
+#   endtime: "24h10m"

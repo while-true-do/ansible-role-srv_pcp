@@ -1,0 +1,2 @@
+# {{ ansible_managed }}
+{{ item.host }} {{ item.primary|default("n") }} {{ item.socks|default("n") }} PCP_LOG_DIR/pmlogger/{{ item.name }} -r -T{{ item.endtime|default("24h10m") }} -c config.{{ item.name }}
