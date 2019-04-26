@@ -12,6 +12,7 @@ platforms:
   - name: fedora29
     image: fedora:29
     command: /sbin/init
+    privileged: true
     volume_mounts:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
@@ -23,6 +24,7 @@ platforms:
   - name: centos7
     image: centos:7
     command: /sbin/init
+    privileged: true
     volume_mounts:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
