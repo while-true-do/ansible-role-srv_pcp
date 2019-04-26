@@ -27,8 +27,8 @@
     enabled: "{{ wtd_srv_pcp_service_enabled }}"
   become: true
   register: pcp_srv_state
-  retries: 3
-  delay: 10
+  retries: 5
+  delay: 15
   until: pcp_srv_state is success
   loop: "{{ wtd_srv_pcp_service }}"
   when:

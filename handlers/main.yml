@@ -6,8 +6,8 @@
     name: pmcd
     state: restarted
   register: pmcd_srv_state
-  retries: 3
-  delay: 10
+  retries: 5
+  delay: 5
   until: pmcd_srv_state is success
   become: true
   tags:
@@ -19,8 +19,8 @@
     name: pmlogger
     state: restarted
   register: pmlogger_srv_state
-  retries: 3
-  delay: 10
+  retries: 5
+  delay: 5
   until: pmlogger_srv_state is success
   become: true
   tags:
