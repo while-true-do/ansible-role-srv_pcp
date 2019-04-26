@@ -5,7 +5,11 @@
   service:
     name: pmcd
     state: restarted
-  become: yes
+  register: pmcd_srv_state
+  retries: 3
+  delay: 10
+  until: pmcd_srv_state is success
+  become: true
   tags:
     - pcp
     - service
@@ -14,7 +18,11 @@
   service:
     name: pmlogger
     state: restarted
-  become: yes
+  register: pmlogger_srv_state
+  retries: 3
+  delay: 10
+  until: pmlogger_srv_state is success
+  become: true
   tags:
     - pcp
     - service
