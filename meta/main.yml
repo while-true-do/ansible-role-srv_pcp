@@ -3,7 +3,7 @@
 galaxy_info:
   role_name: srv_pcp
   author: while-true-do.io
-  description: An Ansible Role to install and configure [Performance Co-Pilot](https://pcp.io/).
+  description: An Ansible Role to install and configure Performance Co-Pilot.
   license: BSD
 
   min_ansible_version: 2.7
@@ -24,6 +24,7 @@ galaxy_info:
   galaxy_tags:
     - pcp
     - package
+    - firewall
     - service
 
 dependencies: []

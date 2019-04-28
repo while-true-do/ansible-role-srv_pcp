@@ -39,9 +39,11 @@ This Role installs Performance Co-Pilot and configures it.
 
 Used Modules:
 
--   [Ansible Package Module](https://docs.ansible.com/ansible/latest/modules/package_module.html)
--   [Ansible Service Module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
--   [Ansible Template Module](https://docs.ansible.com/ansible/latest/modules/template_module.html)
+-   [Ansible package_facts Module](https://docs.ansible.com/ansible/latest/modules/package_facts_module.html)
+-   [Ansible package Module](https://docs.ansible.com/ansible/latest/modules/package_module.html)
+-   [Ansible service_facts Module](https://docs.ansible.com/ansible/latest/modules/service_facts_module.html)
+-   [Ansible service Module](https://docs.ansible.com/ansible/latest/modules/service_module.html)
+-   [Ansible template Module](https://docs.ansible.com/ansible/latest/modules/template_module.html)
 
 ## Installation
 
@@ -81,6 +83,13 @@ wtd_srv_pcp_service:
 wtd_srv_pcp_service_state: "started"
 # Enabled can be true|false
 wtd_srv_pcp_service_enabled: true
+
+# Firewalld Management
+wtd_srv_pcp_firewall_service: "pmcd"
+# State can be enabled|disabled
+wtd_srv_pcp_firewall_service_state: "enabled"
+# Define a zone, to be used
+wtd_srv_pcp_firewall_service_zone: "public"
 
 # Configuration Management
 # 0 = permits remote connections, 1 = forbids remote connections
@@ -134,7 +143,7 @@ can be done in a
       wtd_srv_pcp_conf_pmcd_local: 0
 ```
 
-# Configure a Monitor Host (to fetch from other hosts)
+#### Configure a Monitor Host (to fetch from other hosts)
 
 ```
 - hosts: all

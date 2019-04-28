@@ -20,6 +20,13 @@ wtd_srv_pcp_service_state: "started"
 # Enabled can be true|false
 wtd_srv_pcp_service_enabled: true
 
+# Firewalld Management
+wtd_srv_pcp_firewall_service: "pmcd"
+# State can be enabled|disabled
+wtd_srv_pcp_firewall_service_state: "enabled"
+# Define a zone, to be used
+wtd_srv_pcp_firewall_service_zone: "public"
+
 # Configuration Management
 # 0 = permits remote connections, 1 = forbids remote connections
 # You may have to enable proper firewall rules

@@ -1,6 +1,14 @@
 ---
 # tasks file for while_true_do.srv_pcp
 
+- name: Gather package facts
+  package_facts:
+    manager: auto
+  tags:
+    - pcp
+    - facts
+    - package
+
 - name: Manage pcp Dependencies
   package:
     name: procps-ng
@@ -74,3 +82,18 @@
   tags:
     - pcp
     - configuration
+
+- name: Manage pcp Firewalld Service
+  firewalld:
+    service: "{{ wtd_srv_pcp_firewall_service }}"
+    state: "{{ wtd_srv_pcp_firewall_service_state }}"
+    immediate: true
+    permanent: true
+    zone: "{{ wtd_srv_pcp_firewall_service_zone }}"
+  become: true
+  when:
+    - '"firewalld" in packages'
+  tags:
+    - pcp
+    - configuration
+    - firewall
