@@ -11,6 +11,7 @@
   tags:
     - pcp
     - service
+    - monitoring
 
 - name: Restart pmlogger
   service:
@@ -22,3 +23,4 @@
   tags:
     - pcp
     - service
+    - monitoring

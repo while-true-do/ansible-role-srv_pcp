@@ -26,5 +26,7 @@ galaxy_info:
     - package
     - firewall
     - service
+    - system
+    - monitoring
 
 dependencies: []
