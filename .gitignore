@@ -19,7 +19,7 @@
 *.retry
 
 # cache
-**/__pycache__/*
+**/__pycache__
 
 # temporary files
 *.swp
