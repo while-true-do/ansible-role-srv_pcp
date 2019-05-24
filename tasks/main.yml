@@ -11,10 +11,11 @@
 
 - name: Manage pcp Dependencies
   package:
-    name: procps-ng
+    name: "procps-ng"
     state: "present"
-  when: wtd_srv_pcp_package_state != "absent"
-  become: yes
+  become: true
+  when:
+    - wtd_srv_pcp_package_state != "absent"
   tags:
     - pcp
     - package
@@ -34,25 +35,12 @@
     name: "{{ wtd_srv_pcp_package_pmda }}"
     state: "{{ wtd_srv_pcp_package_state }}"
   become: true
-  when: wtd_srv_pcp_package_pmda
+  loop: "{{ wtd_srv_pcp_package_pmda }}"
+  when:
+    - wtd_srv_pcp_package_state != "absent"
   tags:
     - pcp
     - package
-    - monitoring
-
-- name: Manage pcp Services
-  service:
-    name: "{{ item }}"
-    state: "{{ wtd_srv_pcp_service_state }}"
-    enabled: "{{ wtd_srv_pcp_service_enabled }}"
-  become: true
-  loop: "{{ wtd_srv_pcp_service }}"
-  when:
-    - wtd_srv_pcp_package_state != "absent"
-    - ansible_virtualization_type != "docker"
-  tags:
-    - pcp
-    - service
     - monitoring
 
 - name: Configure /etc/sysconfig/pmcd
@@ -88,16 +76,31 @@
     - configuration
     - monitoring
 
+- name: Manage pcp Services
+  service:
+    name: "{{ item }}"
+    state: "{{ wtd_srv_pcp_service_state }}"
+    enabled: "{{ wtd_srv_pcp_service_enabled }}"
+  become: true
+  loop: "{{ wtd_srv_pcp_service }}"
+  when:
+    - wtd_srv_pcp_package_state != "absent"
+  tags:
+    - pcp
+    - service
+    - monitoring
+
 - name: Manage pcp Firewalld Service
   firewalld:
-    service: "{{ wtd_srv_pcp_firewall_service }}"
-    state: "{{ wtd_srv_pcp_firewall_service_state }}"
+    service: "{{ wtd_srv_pcp_fw_service }}"
+    state: "{{ wtd_srv_pcp_fw_service_state }}"
     immediate: true
     permanent: true
-    zone: "{{ wtd_srv_pcp_firewall_service_zone }}"
+    zone: "{{ wtd_srv_pcp_fw_service_zone }}"
   become: true
   when:
     - '"firewalld" in packages'
+    - wtd_srv_pcp_fw_mgmt
   tags:
     - pcp
     - configuration

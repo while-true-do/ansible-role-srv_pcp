@@ -6,8 +6,6 @@
     name: pmcd
     state: restarted
   become: true
-  when:
-    - ansible_virtualization_type != "docker"
   tags:
     - pcp
     - service
@@ -18,8 +16,6 @@
     name: pmlogger
     state: restarted
   become: true
-  when:
-    - ansible_virtualization_type != "docker"
   tags:
     - pcp
     - service

@@ -29,7 +29,7 @@ env:
 
 install:
   # Install test dependencies.
-  - pip install ansible molecule[docker]
+  - pip install ansible==2.7.10 molecule[docker]
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.

@@ -65,7 +65,7 @@ git clone https://github.com/while-true-do/ansible-role-srv_pcp.git while_true_d
 ---
 # defaults file for while_true_do.srv_pcp
 
-# Package Management
+## Package Management
 wtd_srv_pcp_package:
   - pcp
   - pcp-system-tools
@@ -75,25 +75,8 @@ wtd_srv_pcp_package_pmda: []
 # State can be present|latest|absent
 wtd_srv_pcp_package_state: "present"
 
-# Service Management
-wtd_srv_pcp_service:
-  - pmcd
-  - pmlogger
-# State can be started|stopped
-wtd_srv_pcp_service_state: "started"
-# Enabled can be true|false
-wtd_srv_pcp_service_enabled: true
-
-# Firewalld Management
-wtd_srv_pcp_firewall_service: "pmcd"
-# State can be enabled|disabled
-wtd_srv_pcp_firewall_service_state: "enabled"
-# Define a zone, to be used
-wtd_srv_pcp_firewall_service_zone: "public"
-
-# Configuration Management
-# 0 = permits remote connections, 1 = forbids remote connections
-# You may have to enable proper firewall rules
+## Configuration Management
+# "pmcd_local: 0" permits remote connections, 1 forbids remote connections
 wtd_srv_pcp_conf_pmcd_local: 1
 wtd_srv_pcp_conf_pmcd_maxpending: 5
 wtd_srv_pcp_conf_pmcd_root_agent: 1
@@ -116,6 +99,23 @@ wtd_srv_pcp_conf_pmlogger_control_d: []
 #   primary: "n"
 #   socks: "n"
 #   endtime: "24h10m"
+
+## Service Management
+wtd_srv_pcp_service:
+  - pmcd
+  - pmlogger
+# State can be started|stopped
+wtd_srv_pcp_service_state: "started"
+# Enabled can be true|false
+wtd_srv_pcp_service_enabled: true
+
+## Firewalld Management
+wtd_srv_pcp_fw_mgmt: true
+wtd_srv_pcp_fw_service: "pmcd"
+# State can be enabled|disabled
+wtd_srv_pcp_fw_service_state: "enabled"
+# Zone can be according to defined zones on your machine.
+wtd_srv_pcp_fw_service_zone: "public"
 ```
 
 ### Example Playbook
