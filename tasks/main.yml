@@ -101,6 +101,7 @@
   when:
     - '"firewalld" in packages'
     - wtd_srv_pcp_fw_mgmt
+    - wtd_srv_pcp_conf_pmcd_local = "1"
   tags:
     - pcp
     - configuration
